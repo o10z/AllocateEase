@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filtered Employees</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Filtered Employee List</h1>
+        <form action="/filter" method="POST" class="form-inline justify-content-center mb-4">
+            <input type="text" name="name" class="form-control mr-2" placeholder="Filter by name">
+            <select name="skill" class="form-control mr-2">
+                <option value="">Select Skill</option>
+                <option value="Python">Python</option>
+                <option value="Java">Java</option>
+                <option value="Data Analysis">Data Analysis</option>
+                <option value="Machine Learning">Machine Learning</option>
+                <option value="Project Management">Project Management</option>
+                <option value="SQL">SQL</option>
+                <option value="JavaScript">JavaScript</option>
+                <option value="C++">C++</option>
+                <option value="HTML">HTML</option>
+                <option value="CSS">CSS</option>
+            </select>
+            <select name="availability" class="form-control mr-2">
+                <option value="">Select Availability</option>
+                <option value="10">10+</option>
+                <option value="20">20+</option>
+                <option value="30">30+</option>
+                <option value="40">40+</option>
+                <option value="50">50+</option>
+            </select>
+            <select name="utilization" class="form-control mr-2">
+                <option value="">Select Utilization</option>
+                <option value="0.1">10%+</option>
+                <option value="0.2">20%+</option>
+                <option value="0.3">30%+</option>
+                <option value="0.4">40%+</option>
+                <option value="0.5">50%+</option>
+                <option value="0.6">60%+</option>
+                <option value="0.7">70%+</option>
+                <option value="0.8">80%+</option>
+                <option value="0.9">90%+</option>
+            </select>
+            <select name="proficiency" class="form-control mr-2">
+                <option value="">Select Proficiency</option>
+                <option value="Novice">Novice</option>
+                <option value="Advanced Beginner">Advanced Beginner</option>
+                <option value="Competent">Competent</option>
+                <option value="Proficient">Proficient</option>
+                <option value="Expert">Expert</option>
+            </select>
+            <button type="submit" class="btn btn-primary">Filter</button>
+        </form>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Skills</th>
+                    <th>Availability</th>
+                    <th>Hours Worked</th>
+                    <th>Utilization</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for employee in employees %}
+                <tr class="utilization-{{ 'low' if employee.utilization < 0.4 else 'medium' if employee.utilization < 0.7 else 'high' }}">
+                    <td>{{ employee.name }}</td>
+                    <td>{{ employee.skills }}</td>
+                    <td>{{ employee.availability }}</td>
+                    <td>{{ employee.hours_worked }}</td>
+                    <td>{{ employee.utilization * 100 }}%</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
